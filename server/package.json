@@ -1,0 +1,12 @@
+{
+  "name": "gforce-server",
+  "version": "1.0.0",
+  "description": "Self-hosted backend for GForce — serves the admin dashboard, the barangay portal, and the shared JSON-file datastore both read/write through.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  // Set theme before first paint to avoid a flash of the wrong theme.
+  (function(){
+    var saved = localStorage.getItem("gforce_theme");
+    if(saved === "dark"){ document.documentElement.setAttribute("data-theme","dark"); }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GForce — Disaster Intelligence &amp; Resource Command</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="shell">
+  <div class="app-chrome" id="app-chrome">
+    <div class="hazard-stripe"></div>
+
+    <!-- BRAND ROW -->
+    <div class="brand-row">
+      <div class="brand">
+        <span class="brand-mark">G</span>
+        <div class="brand-text">
+          <strong>GForce</strong>
+          <small>DISASTER RESOURCE COMMAND</small>
+        </div>
+      </div>
+      <div class="topbar-controls">
+        <div class="scope-pill"><span class="dot dot-live"></span> FLOOD RESPONSE — BRGY. SAN ISIDRO CLUSTER</div>
+        <div class="scope-pill" id="conn-pill"><span class="dot" id="conn-dot"></span><span id="conn-label">Online</span></div>
+        <button class="btn btn-ghost btn-sm" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">DARK MODE</button>
+        <div class="notif-wrap">
+          <button class="btn btn-ghost btn-sm notif-bell" id="notif-bell" type="button" aria-label="Notifications" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="notif-panel" id="notif-panel" hidden></div>
+        </div>
+        <label class="role-switch">
+          <span>ROLE</span>
+          <div class="cselect role-cselect" data-cselect="role">
+            <button type="button" class="cselect-btn">
+              <span class="cselect-label">Approving Official</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;flex-shrink:0;"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="cselect-menu" hidden>
+              <div class="cselect-opt" data-value="barangay">Barangay Requestor</div>
+              <div class="cselect-opt" data-value="verifier">Verifying Officer</div>
+              <div class="cselect-opt" data-value="admin">Logistics Admin</div>
+              <div class="cselect-opt is-active" data-value="official">Approving Official</div>
+            </div>
+            <input type="hidden" id="role-select" value="official">
+          </div>
+        </label>
+        <span id="clock">—</span>
+      </div>
+    </div>
+
+    <!-- TAB STRIP -->
+    <nav class="tab-strip" id="nav">
+      <div class="tab-group">
+        <button class="nav-item" data-view="overview">OVERVIEW</button>
+        <button class="nav-item" data-view="gis">GIS MAP</button>
+      </div>
+      <div class="tab-group">
+        <button class="nav-item" data-view="tickets">REQUESTS</button>
+        <button class="nav-item" data-view="inventory">ALLOCATION</button>
+        <button class="nav-item" data-view="ai">AI PRIORITIZATION</button>
+      </div>
+      <div class="tab-group">
+        <button class="nav-item" data-view="barcode-requestor">PICKUP CODE</button>
+        <button class="nav-item" data-view="barcode-verifier">VERIFIER</button>
+      </div>
+      <div class="tab-group">
+        <button class="nav-item" data-view="transparency">REPORT</button>
+        <button class="nav-item" data-view="alerts">ALERTS</button>
+        <button class="nav-item" data-view="evac">EVAC CENTERS</button>
+        <button class="nav-item" data-view="personnel">PERSONNEL</button>
+        <button class="nav-item" data-view="roadmap">ROADMAP</button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="view-head">
+      <h1 id="view-title">Overview</h1>
+      <p id="view-sub">Common operating picture for active response.</p>
+    </header>
+    <main id="view-root" class="view-root"><!-- views injected here --></main>
+  </div>
+</div>
+
+<template id="tpl-toast"><div class="toast"></div></template>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/barcode.js"></script>
+<script src="js/map.js"></script>
+<script src="js/views.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
